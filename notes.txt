@@ -17,14 +17,14 @@
                     - ? after clicking, second api call to 'movie/{movie_id}
                         - set state of description, genre, tagline, runtime
                         - only gets information after movie selected (thus a new GET request on each movie)
-            - ? layout
-                - side by side, scrollable container within viewport  
-                    - left:
-                        - list of movies returned from discover api call
-                    - right:
-                        - initial state blank/message
-                        - when movie selected:
-                            - second api call to populate
-                            - poster on top
-                            - data on bottom
+        - ? layout
+            - side by side, scrollable container within viewport  
+                - left:
+                    - list of movies returned from discover api call
+                - right:
+                    - initial state blank/message
+                    - when movie selected:
+                        - second api call to populate
+                        - poster on top
+                        - data on bottom
         - footer
