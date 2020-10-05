@@ -1,0 +1,30 @@
+- App 
+    - discover api call: 
+        - filter data.results, include data.popularity >= 10.0
+        - set state of movie card parent component (app, container?) to array of movies
+    - movie details api call:
+        - recover id from array of movies (first api call)
+        - onclick, get details
+        - set state of movie card (description, genre, tagline, runtime)
+        - image url: https://image.tmdb.org/t/p/w500/{poster_path}
+    - has components & subcomponents:
+        - header 
+        - movie card, created for each movie returned 
+            - title component for now, movie poster if possible
+            - overview component - when clicked:
+                - show description, genre, tag line, runtime
+                - ? homepage/movie list generated from 'discover' api call
+                    - ? after clicking, second api call to 'movie/{movie_id}
+                        - set state of description, genre, tagline, runtime
+                        - only gets information after movie selected (thus a new GET request on each movie)
+            - ? layout
+                - side by side, scrollable container within viewport  
+                    - left:
+                        - list of movies returned from discover api call
+                    - right:
+                        - initial state blank/message
+                        - when movie selected:
+                            - second api call to populate
+                            - poster on top
+                            - data on bottom
+        - footer
