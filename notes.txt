@@ -1,5 +1,26 @@
 - App 
     - discover api call: 
+            let page = 1
+            const totalPages
+            api call
+            totalPages = data.total_pages
+            let movies = [data.results]
+
+            for (let i = 2, totalPages;i <= totalPages; i++) {
+                api call with page = i
+                for (let i = 0; i < data.results.length; i++) {
+                    if (data.results[i].popularity >= 10) {
+                        movies.push(...data.results[i])
+                    }
+                }
+            }
+
+            for (let i = 2, totalPages; i <= totalPages; i++) {
+                api call with page = id
+                let popular = data.results.filter(movie => movie.popularity >= 10)
+                movies.push(...popular)
+            }
+
         - filter data.results, include data.popularity >= 10.0
         - set state of movie card parent component (app, container?) to array of movies
     - movie details api call:
