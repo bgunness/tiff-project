@@ -9,16 +9,42 @@ class Body extends Component {
             movies: []
         }
     }
-    componentDidMount() {
-        const api_key = process.env.REACT_APP_API_KEY
-        // attributes for pages:
-            // page: current page, total_pages: 500
+    async componentDidMount() {
         let movies = []
-        // for loop, increment page, if popularity >= 10 add to results array
-        fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&primary_release_year=2020&page=2`)
+        let page = 1
+        const api_key = process.env.REACT_APP_API_KEY
+        const totalPages = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&primary_release_year=2020&page=${page}`)
             .then(data => data.json())
-            .then(movie => movies.push(...movie.results))
-            .then(console.log(movies))
+            .then(moviesData => moviesData.total_pages) //get value of 500 in totalPages
+        
+/*  This is the same as the operation beneath it, but this one does not use spread & filter
+
+        for (page, totalPages, movies; page <= totalPages; page++) { //for every page between 1 & 500 inclusive
+            await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&primary_release_year=2020&page=${page}`)
+                .then(data => data.json())
+                .then(resultPage => {
+                    for (let i = 0; i < resultPage.results.length; i++) {
+                        if (resultPage.results[i].popularity >= 10.0) {
+                            movies.push(resultPage.results[i])
+                        }
+                    }
+                })
+        }
+*/
+
+/* 
+    Due to the nature of the Movie Database API, I believe (could be wrong) that a new call needs to be for every page of the results, thus this is a time consuming operation.
+    Time is also hindered by the same operation also performing a filter on every page.
+*/
+        for (movies; page <= totalPages; page++) {
+            await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&primary_release_year=2020&page=${page}`)
+                .then(data => data.json())
+                .then(resultPage => {
+                    let popular = resultPage.results.filter(movie => movie.popularity >= 10.0)
+                    movies.push(...popular)
+                })
+        }
+        // console.log(movies)
     }
     render() {
         return(
