@@ -20,11 +20,11 @@ body {
   margin: auto;
   display: grid;
   grid-template-columns: auto auto;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .movieList {
-  
+  overflow-y: scroll;
 }
 
 .movieDetails {

@@ -54,9 +54,9 @@ class Body extends Component {
         // console.log(this.state.movies)
         return(
             <div className='movieContainer test'>
-            <ul className='movieList'>
+            <ol className='movieList'>
                 {this.state.movies.map(movie => <MovieList movie={movie} />)}
-            </ul>
+            </ol>
                 <MoviePreview />
             </div>
         )
