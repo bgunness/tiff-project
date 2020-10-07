@@ -1,11 +1,8 @@
 import React from 'react'
 
-export default function MovieList() {
+export default function MovieList(props) {
+    console.log(props)
     return(
-        <div className='movieList'>
-            <ul>
-                <li>Movie item</li>
-            </ul>
-        </div>
+        <li>{props.movie.original_title}</li>
     )
 }
