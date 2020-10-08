@@ -19,12 +19,16 @@ body {
   width: 80vw;
   margin: auto;
   display: grid;
-  grid-template-columns: auto auto;
-  /* overflow-y: scroll; */
+  grid-template-columns: 50% 50%;
 }
 
 .movieList {
   overflow-y: scroll;
+  /* list-style: none; */
+}
+
+.movieList li {
+  margin: 5px 0;
 }
 
 .movieDetails {

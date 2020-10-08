@@ -8,56 +8,79 @@ class Body extends Component {
         this.state = {
             movies: []
         }
+        this.onClickFunction = this.onClickFunction.bind(this)
     }
+    onClickFunction(e) {
+        console.log(e.target)
+    }
+    compare( a, b ) {
+        if ( a.release_date < b.release_date ){
+          return -1;
+        }
+        if ( a.release_date > b.release_date ){
+          return 1;
+        }
+        return 0;
+      }
     async componentDidMount() {
         let movies = []
         let page = 1
+        let p = true
         const api_key = process.env.REACT_APP_API_KEY
         /* The operation below is done to return the number of pages which need to be iterated - 500 in this case */
         const totalPages = await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&primary_release_year=2020&page=${page}`)
             .then(data => data.json())
             .then(moviesData => moviesData.total_pages)
         
-    /*  This is the same as the operation beneath it, but this one does not use spread & filter
+    /*  This function will only do fetch calls until p = false, which occurs after the first movie with popularity < 10 is reached.
+        Data coming in is already sorted by popularity, so assuming the API is working as intended, no desired data should be missed.
+    */
 
-            for (page, totalPages, movies; page <= totalPages; page++) { //for every page between 1 & 500 inclusive
-                await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&primary_release_year=2020&page=${page}`)
-                    .then(data => data.json())
-                    .then(resultPage => {
+        for (page, totalPages, movies; page <= totalPages; page++) { //for every page between 1 & 500 inclusive
+            if (p) {
+            await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&primary_release_year=2020&page=${page}`)
+                .then(data => data.json())
+                .then(resultPage => {
+                    try {
                         for (let i = 0; i < resultPage.results.length; i++) {
                             if (resultPage.results[i].popularity >= 10.0) {
                                 movies.push(resultPage.results[i])
+                            } else if (resultPage.results[i].popularity < 10.0){
+                                p = false
+                                break //ensures inner for loop terminates once popularity < 10
                             }
                         }
-                    })
-            }
-    */
+                    } catch (err) {console.log(err)}
+                })
+            } else {break}
+        }
 
     /* 
-        Due to the nature of the Movie Database API, I believe (could be wrong) that a new call needs to be for every page of the results, thus this is a time consuming operation.
-        Time is also hindered by the same operation also performing a filter on every page.
+        This function below fetches all 500 pages of movies from 2020, then filters out the data with undesirable attribute values.
+        The final array does not need to be further sorted by date, however this is much less efficient over the network.
     */
 
-        for (movies; page <= totalPages; page++) {
-            await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&primary_release_year=2020&page=${page}`)
-                .then(data => data.json())
-                .then(resultPage => {
-                    let popular = resultPage.results.filter(movie => movie.popularity >= 10.0)
-                    movies.push(...popular)
-                })
-        }
+        // for (movies; page <= totalPages; page++) {
+        //     await fetch(`https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=primary_release_date.asc&include_adult=false&include_video=false&primary_release_year=2020&page=${page}`)
+        //         .then(data => data.json())
+        //         .then(resultPage => {
+        //             let popular = resultPage.results.filter(movie => movie.popularity >= 10.0)
+        //             movies.push(...popular)
+        //         })
+        // }
+        
+        movies.sort(this.compare)
         this.setState({
             movies: movies
         })
     }
     render() {
-        // console.log(this.state.movies)
         return(
             <div className='movieContainer test'>
             <ol className='movieList'>
-                {this.state.movies.map(movie => <MovieList movie={movie} />)}
+                {this.state.movies.map(movie => <MovieList key= {movie.id} movie={movie} onClick={this.onClickFunction}/>)}
             </ol>
-                <MoviePreview />
+                <MoviePreview movie={this.state.movies} />
             </div>
         )
     }

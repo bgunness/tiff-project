@@ -1,9 +1,13 @@
 import React from 'react'
 
-export default function MoviePreview() {
-    return(
-        <div className='movieDetails'>
-            <h1>This Movie</h1>
-        </div>
-    )
+class MoviePreview extends React.Component {
+    render() {
+        return(
+            <div className='movieDetails'>
+                <h1>This Movie</h1>
+            </div>
+        )
+    }
 }
+
+export default MoviePreview
