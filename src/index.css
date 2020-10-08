@@ -15,9 +15,9 @@ body {
 }
 
 .movieContainer {
-  height: 60vh;
+  height: 70vh;
   width: 80vw;
-  margin: auto;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 50% 50%;
 }
@@ -32,5 +32,25 @@ body {
 }
 
 .movieDetails {
+  min-height: 100%;
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-areas: 
+    'poster title'
+    'poster details';
+}
 
+.title {
+  grid-area: title;
+}
+
+.details {
+  grid-area: details;
+}
+
+.poster {
+  grid-area: poster;
+  width: 100%;
+  min-height: 100%;
+  object-fit: cover;
 }

@@ -52,7 +52,7 @@ class Body extends Component {
                         }
                     } catch (err) {console.log(err)}
                 })
-            } else {break}
+            } else {break} //ensures outer for loop terminates once popularity < 10
         }
 
     /* 
@@ -68,11 +68,13 @@ class Body extends Component {
         //             movies.push(...popular)
         //         })
         // }
-
         movies.sort(this.compare)
+        // console.log(movies[0].id)
         this.setState({
-            movies: movies
+            movies: movies,
+            selectedId: movies[0].id.toString()
         })
+        // console.log(this.state.selectedId)
     }
     render() {
         return(
