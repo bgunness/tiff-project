@@ -6,22 +6,22 @@ class Body extends Component {
     constructor() {
         super()
         this.state = {
-            movies: []
+            movies: [],
+            selectedId: ''
         }
         this.onClickFunction = this.onClickFunction.bind(this)
     }
     onClickFunction(e) {
-        console.log(e.target)
+        this.setState({selectedId: e.target.id})
     }
-    compare( a, b ) {
-        if ( a.release_date < b.release_date ){
-          return -1;
-        }
-        if ( a.release_date > b.release_date ){
-          return 1;
+    compare(i, j) {
+        if (i.release_date < j.release_date) {
+            return -1;
+        } else if (i.release_date > j.release_date) {
+            return 1;
         }
         return 0;
-      }
+    }
     async componentDidMount() {
         let movies = []
         let page = 1
@@ -68,7 +68,7 @@ class Body extends Component {
         //             movies.push(...popular)
         //         })
         // }
-        
+
         movies.sort(this.compare)
         this.setState({
             movies: movies
@@ -80,7 +80,7 @@ class Body extends Component {
             <ol className='movieList'>
                 {this.state.movies.map(movie => <MovieList key= {movie.id} movie={movie} onClick={this.onClickFunction}/>)}
             </ol>
-                <MoviePreview movie={this.state.movies} />
+                <MoviePreview movie={this.state.movies} selected={this.state.selectedId} />
             </div>
         )
     }

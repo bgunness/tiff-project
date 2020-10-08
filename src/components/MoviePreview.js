@@ -4,7 +4,7 @@ class MoviePreview extends React.Component {
     render() {
         return(
             <div className='movieDetails'>
-                <h1>This Movie</h1>
+                <h1>{this.props.selected}</h1>
             </div>
         )
     }
