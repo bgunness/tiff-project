@@ -61,10 +61,36 @@ body {
 
 /* ----- Header ------ */
 
+.header {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  user-select: none;
+}
+
+.logo {
+  width: 100px;
+}
+
+.logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+.subtitle {
+  align-self: flex-end;
+  margin-left: 10px;
+  color: #ff3700;
+}
+
+.subtitle p {
+  margin: 0;
+}
+
 /* ----- Main Body Containers ------ */
 
 .movieContainer {
-  height: 70vh;
+  height: 60vh;
   width: 80vw;
   margin: 0 auto;
   display: grid;
@@ -74,6 +100,10 @@ body {
 }
 
   /* ----- Movie List Panel ----- */
+    .loadMsg {
+      text-align: center;
+      margin: auto;
+    }
 
     .movieList {
       overflow-y: scroll;
@@ -109,7 +139,8 @@ body {
       grid-area: title;
     }
 
-    #runtime {
+    #runtime,
+    #releaseDate {
       font-size: 14px;
     }
 
@@ -130,6 +161,30 @@ body {
     }
 
 /* ----- Footer ------ */
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.footer-logo {
+  width: 50px;
+  margin: 10px auto;
+}
+
+.footer-logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+.footer-name p {
+  font-size: 12px;
+  margin: 5px 0;
+  user-select: none;
+  color: lightslategray;
+}
 
 /* .poster {
   grid-area: poster;

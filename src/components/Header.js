@@ -1,9 +1,17 @@
 import React, {Component} from 'react'
+import  {ReactComponent as Logo} from '../tiff-logo.svg'
 
 class Header extends Component {
     render() {
         return(
-            <h2>Hello</h2>
+            <div className='header'>
+                <div className='logo'>
+                    <Logo />
+                </div>
+                <div className='subtitle'>
+                    <p>Toronto International Film Festival</p>
+                </div>
+            </div>
         )
     }
 }

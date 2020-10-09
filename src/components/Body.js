@@ -7,7 +7,8 @@ class Body extends Component {
         super()
         this.state = {
             movies: [],
-            selectedId: ''
+            selectedId: '',
+            loaded: false
         }
         this.onClickFunction = this.onClickFunction.bind(this)
     }
@@ -69,22 +70,32 @@ class Body extends Component {
         //         })
         // }
         movies.sort(this.compare)
-        // console.log(movies[0].id)
         this.setState({
             movies: movies,
-            selectedId: movies[0].id.toString()
+            selectedId: movies[0].id.toString(),
+            loaded: true
         })
-        // console.log(this.state.selectedId)
     }
     render() {
-        return(
-            <div className='movieContainer'>
-            <ol className='movieList'>
-                {this.state.movies.map(movie => <MovieList key={movie.id} movie={movie} onClick={this.onClickFunction}/>)}
-            </ol>
+        if(!this.state.loaded) {
+            return(
+                <div className='movieContainer'>
+                    <div className='loadMsg'>
+                        <p>Retrieving Movie Information...Hang Tight!</p>
+                    </div>
                 <MoviePreview movie={this.state.movies} selected={this.state.selectedId} />
             </div>
-        )
+            )
+        } else {
+            return (
+                <div className='movieContainer'>
+                    <ol className='movieList'>
+                        {this.state.movies.map(movie => <MovieList key={movie.id} movie={movie} onClick={this.onClickFunction}/>)}
+                    </ol>
+                    <MoviePreview movie={this.state.movies} selected={this.state.selectedId} />
+                </div>
+            )
+        }
     }
 }
 

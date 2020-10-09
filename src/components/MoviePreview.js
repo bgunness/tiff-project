@@ -9,7 +9,7 @@ class MoviePreview extends React.Component {
             desc: '',
             tagline: '',
             title: '',
-            posterUrl: ''
+            release: ''
         }
         // this.getData = this.getData.bind(this)
     }
@@ -25,8 +25,8 @@ class MoviePreview extends React.Component {
                         desc: details.overview,
                         tagline: details.tagline,
                         genres: details.genres.map(genre => genre.name),
-                        posterUrl: 'https://image.tmdb.org/t/p/w185/' + details.poster_path,
-                        title: details.original_title
+                        title: details.original_title,
+                        release: details.release_date
                     })
                 })
         }
@@ -38,8 +38,8 @@ class MoviePreview extends React.Component {
                     <h1>{this.state.title}</h1>
                     <h4>{this.state.tagline}</h4>
                     <p id='runtime'>Runtime: {this.state.runtime} minutes</p>
+                    <p id='releaseDate'>Released on: {this.state.release}</p>
                 </div>
-                {/* <img className='poster' src={this.state.posterUrl} alt={this.state.title + ' Poster'} /> */}
                 <div className='details'>
                     <p>{this.state.desc}</p>
                     <ul id='genreList'>
