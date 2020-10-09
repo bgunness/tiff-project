@@ -78,9 +78,9 @@ class Body extends Component {
     }
     render() {
         return(
-            <div className='movieContainer test'>
+            <div className='movieContainer'>
             <ol className='movieList'>
-                {this.state.movies.map(movie => <MovieList key= {movie.id} movie={movie} onClick={this.onClickFunction}/>)}
+                {this.state.movies.map(movie => <MovieList key={movie.id} movie={movie} onClick={this.onClickFunction}/>)}
             </ol>
                 <MoviePreview movie={this.state.movies} selected={this.state.selectedId} />
             </div>
