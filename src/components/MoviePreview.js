@@ -11,7 +11,6 @@ class MoviePreview extends React.Component {
             title: '',
             release: ''
         }
-        // this.getData = this.getData.bind(this)
     }
     async componentDidUpdate(prevProps) {
         if (this.props.selected !== prevProps.selected) {
